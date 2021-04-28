@@ -4,19 +4,27 @@ from collections import Counter
 WORDS_PLACE_IN_FREQUENCY_LIST = 0
 FREQUENCY_PLACE_IN_FREQUENCY_LIST = 1
 
-# TODO: Add documentation to each function. 
+# TODO: Add documentation to each function.
 # TODO: Add tests to each function
-# TODO: Divide function into different files. 
-# TODO: Add configuration file for magic numbers and strings. 
+# TODO: Divide function into different files.
+# TODO: Add configuration file for magic numbers and strings.
 
 
-def read_file(file_path):
+def read_file(file_path: str) -> str:
+    """Read file holding a string.
+
+    Args:
+        file_path (str)
+
+    Returns:
+        str: data in string format
+    """
     with open(file_path, "r") as f:
         file_string = f.read()
     return file_string
 
 
-def get_words_only_in_string(file_string):
+def get_words_only_in_string(file_string: str) -> list:
     list_just_words = re.findall(r'\w+', file_string)
     list_words_small_letters = [x.lower() for x in list_just_words]
 
@@ -71,8 +79,8 @@ def calculate_relative_from_frequencies(base_words, base_freq, ref_words_whole, 
 
     ref_ind = [ref_words_whole.index(x) for x in base_words]
     base_relative = [(x[WORDS_PLACE_IN_FREQUENCY_LIST], x[FREQUENCY_PLACE_IN_FREQUENCY_LIST] /
-                      ref_freq_added_base_words[ref_ind[ind]][FREQUENCY_PLACE_IN_FREQUENCY_LIST]) 
-                      for ind, x in enumerate(base_freq)]
+                      ref_freq_added_base_words[ref_ind[ind]][FREQUENCY_PLACE_IN_FREQUENCY_LIST])
+                     for ind, x in enumerate(base_freq)]
     return base_relative
 
 
@@ -102,25 +110,30 @@ def find_meaningful_words_in_file_from_other(base_path, referance_path, number_o
     return most_meaningful_words
 
 
-def main():
+def main(print_results=True):
     hamlet_path = "hamlet.txt"
     # Find how many words are there in hamlet txt file.
     hamlet_words_number = get_words_in_file(hamlet_path)
-    print(f"There are {hamlet_words_number} words in hamlet plat.")
+    if print_results:
+        print(f"There are {hamlet_words_number} words in hamlet plat.")
 
     # Find the 30 most common words.
     how_many_common_words = 30
-    most_common_words = get_most_common_words_in_play(
+    hamlet_most_common_words = get_most_common_words_in_play(
         hamlet_path, how_many_common_words)
-    print(
-        f"The {how_many_common_words} most common words in hamlet are - {most_common_words}")
+    if print_results:
+        print(
+            f"The {how_many_common_words} most common words in hamlet are - {hamlet_most_common_words}")
 
     # Having macbeth txt, could you find the most meaningful words in the hamlet file.
     macbeth_path = "macbeth.txt"
     hamlet_meaningful_words = find_meaningful_words_in_file_from_other(
         hamlet_path, macbeth_path, how_many_common_words)
-    print(
-        f"These are the most meaningful words in the hamlet play: {hamlet_meaningful_words}")
+    if print_results:
+        print(
+            f"These are the most meaningful words in the hamlet play: {hamlet_meaningful_words}")
+
+    return hamlet_words_number, hamlet_most_common_words, hamlet_meaningful_words
 
 
 if __name__ == "__main__":
