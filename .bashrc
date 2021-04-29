@@ -1,0 +1,1 @@
+PYTHONPATH="/home/razor/Projects/alon/meaningful_words_in_txt/"

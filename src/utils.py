@@ -47,3 +47,15 @@ class SaveRead():
 
         return pd.read_csv(csv_filepath)
 
+
+    @staticmethod
+    def read_txt_file_to_string(file_path: str) -> str:
+        """Read file holding a string.
+        Args:
+            file_path (str)
+        Returns:
+            str: data in string format
+        """
+        with open(file_path, "r") as f:
+            file_string = f.read()
+        return file_string

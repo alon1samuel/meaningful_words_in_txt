@@ -1,7 +1,7 @@
 import unittest
+import os
 from src import find_meaningful_words
 from src.utils import SaveRead
-import os
 
 DATA_DIR = "tests/data_tests"
 

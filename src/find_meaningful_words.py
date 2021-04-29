@@ -1,5 +1,7 @@
-import re
 from collections import Counter
+from src.utils import SaveRead
+from src.count_words import get_words_only_small_letters, get_number_of_words_from_file
+
 #
 WORDS_PLACE_IN_FREQUENCY_LIST = 0
 FREQUENCY_PLACE_IN_FREQUENCY_LIST = 1
@@ -8,33 +10,6 @@ FREQUENCY_PLACE_IN_FREQUENCY_LIST = 1
 # TODO: Add tests to each function
 # TODO: Divide function into different files.
 # TODO: Add configuration file for magic numbers and strings.
-
-
-def read_file(file_path: str) -> str:
-    """Read file holding a string.
-
-    Args:
-        file_path (str)
-
-    Returns:
-        str: data in string format
-    """
-    with open(file_path, "r") as f:
-        file_string = f.read()
-    return file_string
-
-
-def get_words_only_in_string(file_string: str) -> list:
-    list_just_words = re.findall(r'\w+', file_string)
-    list_words_small_letters = [x.lower() for x in list_just_words]
-
-    return list_words_small_letters
-
-
-def get_words_in_file(file_path):
-    file_string = read_file(file_path)
-    only_words_list = get_words_only_in_string(file_string)
-    return len(only_words_list)
 
 
 def sort_frequencies_list(frequencies_list):
@@ -55,8 +30,8 @@ def get_only_common_words(words_frequencies_dict, number_of_most_common):
 
 def get_most_common_words_in_play(file_path, number_of_most_common):
 
-    file_string = read_file(file_path)
-    only_words_list = get_words_only_in_string(file_string)
+    file_string = SaveRead.read_txt_file_to_string(file_path)
+    only_words_list = get_words_only_small_letters(file_string)
     words_frequencies_dict = count_words_in_list(only_words_list)
     most_common_words = get_only_common_words(
         words_frequencies_dict, number_of_most_common)
@@ -96,11 +71,11 @@ def get_relative_frequencies(base_freq, ref_freq):
     pass
 
 
-def find_meaningful_words_in_file_from_other(base_path, referance_path, number_of_words):
+def find_meaningful_words_in_file_from_other(base_path, reference_path, number_of_words):
     base_words_frequencies = count_words_in_list(
-        get_words_only_in_string(read_file(base_path)))
+        get_words_only_small_letters(SaveRead.read_txt_file_to_string(base_path)))
     referance_words_frequencies = count_words_in_list(
-        get_words_only_in_string(read_file(referance_path)))
+        get_words_only_small_letters(SaveRead.read_txt_file_to_string(reference_path)))
     base_relative_frequencies = get_relative_frequencies(
         base_words_frequencies, referance_words_frequencies)
     base_relative_frequencies = sort_frequencies_list(
@@ -113,7 +88,7 @@ def find_meaningful_words_in_file_from_other(base_path, referance_path, number_o
 def main(print_results=True):
     hamlet_path = "hamlet.txt"
     # Find how many words are there in hamlet txt file.
-    hamlet_words_number = get_words_in_file(hamlet_path)
+    hamlet_words_number = get_number_of_words_from_file(hamlet_path)
     if print_results:
         print(f"There are {hamlet_words_number} words in hamlet plat.")
 
