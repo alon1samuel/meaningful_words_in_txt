@@ -9,8 +9,8 @@ from src import get_words_only, words_counter, ratio_of_words_count
 
 def count_words_from_file(file_path):
     file_string = SaveRead.read_txt_file_to_string(file_path)
-    lower_letters_words_list = get_words_only.get_words_only_small_letters(file_string)
-    words_count = len(lower_letters_words_list) 
+    lower_case_words_list = get_words_only.get_words_in_lower_case(file_string)
+    words_count = len(lower_case_words_list) 
     return words_count
 
 
@@ -18,9 +18,9 @@ def count_words_from_file(file_path):
 def get_most_common_words_in_string(file_path, number_of_most_common):
 
     file_string = SaveRead.read_txt_file_to_string(file_path)
-    only_words_list = get_words_only.get_words_only_small_letters(file_string)
-    counted_words_tuple_list = words_counter.count_words_in_list(only_words_list)
-    sorted_words_count_tuple_list = words_counter.sort_words_count(counted_words_tuple_list)
+    only_words_list = get_words_only.get_words_in_lower_case(file_string)
+    counted_words_tuple_list = words_counter.count_occurences_of_elements_in_a_list(only_words_list)
+    sorted_words_count_tuple_list = words_counter.sort_elements_and_occurences_tuple_list_from_high_to_low(counted_words_tuple_list)
     most_common_words = words_counter.get_first_words_in_tuple_list(
         sorted_words_count_tuple_list, number_of_most_common)
     return most_common_words
@@ -28,17 +28,17 @@ def get_most_common_words_in_string(file_path, number_of_most_common):
 
 def find_meaningful_words_in_file_from_another_file(base_path, reference_path, number_of_words):
     # Count words in base and reference files
-    base_words_counted = words_counter.count_words_in_list(
-        get_words_only.get_words_only_small_letters(
+    base_words_counted = words_counter.count_occurences_of_elements_in_a_list(
+        get_words_only.get_words_in_lower_case(
             SaveRead.read_txt_file_to_string(base_path)))
-    reference_words_counted = words_counter.count_words_in_list(
-        get_words_only.get_words_only_small_letters(SaveRead.read_txt_file_to_string(reference_path)))
+    reference_words_counted = words_counter.count_occurences_of_elements_in_a_list(
+        get_words_only.get_words_in_lower_case(SaveRead.read_txt_file_to_string(reference_path)))
     # Get the ratio of base words count relative to reference words count.
     base_words_relative_reference_count_tuple_list = \
         ratio_of_words_count.get_ratio_of_base_words_count_relative_to_reference_words_count(
         base_words_counted, reference_words_counted)
     # Sort the relative count of base words
-    sorted_base_words_relative_reference_count_tuple_list = words_counter.sort_words_count(
+    sorted_base_words_relative_reference_count_tuple_list = words_counter.sort_elements_and_occurences_tuple_list_from_high_to_low(
         base_words_relative_reference_count_tuple_list)
     most_meaningful_words = words_counter.get_first_words_in_tuple_list(
         sorted_base_words_relative_reference_count_tuple_list, number_of_words)

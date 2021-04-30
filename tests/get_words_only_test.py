@@ -14,13 +14,13 @@ class TemplateTest(unittest.TestCase):
             string_of_words_input)
 
     @staticmethod
-    def test_convert_to_lower_letter():
+    def test_convert_to_lower_case_words():
         # Input data and reference
         input_list_words = ["Alon", "guy", "thAt", "aRe", "Not", "words"]
-        reference_lower_letter_words = [
+        reference_lower_case_words = [
             "alon", "guy", "that", "are", "not", "words"]
         # Check assertion
-        assert reference_lower_letter_words == get_words_only.convert_to_lower_letter(
+        assert reference_lower_case_words == get_words_only.convert_to_lower_case_words(
             input_list_words)
 
 

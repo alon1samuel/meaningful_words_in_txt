@@ -1,6 +1,6 @@
 import unittest
 import os
-from src import find_meaningful_words
+from src import find_meaningful_words_pipeline
 from src.utils import SaveRead
 
 DATA_DIR = "tests/data_tests"
@@ -18,7 +18,7 @@ class PipelineTests(unittest.TestCase):
         ref_hamlet_words_number, ref_hamlet_most_common_words, ref_hamlet_meaningful_words = SaveRead().read_data_pickle(path_to_read=pipeline_data_path)
 
         # Activating hamlet meaningful words pipeline.
-        hamlet_words_number, hamlet_most_common_words, hamlet_meaningful_words = find_meaningful_words.main(print_results=False)
+        hamlet_words_number, hamlet_most_common_words, hamlet_meaningful_words = find_meaningful_words_pipeline.main(print_results=False)
 
         # Assertion
         assert hamlet_words_number == ref_hamlet_words_number
