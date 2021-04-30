@@ -1,5 +1,4 @@
 import re
-from src.utils import SaveRead
 
 
 def gets_words_list_from_string(file_string: str) -> list:
@@ -17,7 +16,3 @@ def get_words_only_small_letters(file_string: str) -> list:
     return convert_to_lower_letter(gets_words_list_from_string(file_string))
 
 
-def count_words_from_file(file_path):
-    file_string = SaveRead.read_txt_file_to_string(file_path)
-    lower_letters_words_list = get_words_only_small_letters(file_string)
-    return len(lower_letters_words_list)

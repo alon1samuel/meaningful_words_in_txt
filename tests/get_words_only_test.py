@@ -1,5 +1,5 @@
 import unittest
-from src import count_words
+from src import get_words_only 
 
 
 class TemplateTest(unittest.TestCase):
@@ -10,7 +10,7 @@ class TemplateTest(unittest.TestCase):
         string_of_words_input = "Alon, guy , ~~: that are not words"
         reference_words_list = ["Alon", "guy", "that", "are", "not", "words"]
         # Check assertion
-        assert reference_words_list == count_words.gets_words_list_from_string(
+        assert reference_words_list == get_words_only.gets_words_list_from_string(
             string_of_words_input)
 
     @staticmethod
@@ -20,7 +20,7 @@ class TemplateTest(unittest.TestCase):
         reference_lower_letter_words = [
             "alon", "guy", "that", "are", "not", "words"]
         # Check assertion
-        assert reference_lower_letter_words == count_words.convert_to_lower_letter(
+        assert reference_lower_letter_words == get_words_only.convert_to_lower_letter(
             input_list_words)
 
 
