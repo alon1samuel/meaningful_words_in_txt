@@ -20,15 +20,17 @@ def get_most_common_words_in_string(file_path, number_of_most_common):
     file_string = SaveRead.read_txt_file_to_string(file_path)
     only_words_list = get_words_only.get_words_only_small_letters(file_string)
     counted_words_tuple_list = words_counter.count_words_in_list(only_words_list)
-    most_common_words = words_counter.get_only_common_words(
-        counted_words_tuple_list, number_of_most_common)
+    sorted_words_count_tuple_list = words_counter.sort_words_count(counted_words_tuple_list)
+    most_common_words = words_counter.get_first_words_in_tuple_list(
+        sorted_words_count_tuple_list, number_of_most_common)
     return most_common_words
 
 
 def find_meaningful_words_in_file_from_another_file(base_path, reference_path, number_of_words):
     # Count words in base and reference files
     base_words_counted = words_counter.count_words_in_list(
-        get_words_only.get_words_only_small_letters(SaveRead.read_txt_file_to_string(base_path)))
+        get_words_only.get_words_only_small_letters(
+            SaveRead.read_txt_file_to_string(base_path)))
     reference_words_counted = words_counter.count_words_in_list(
         get_words_only.get_words_only_small_letters(SaveRead.read_txt_file_to_string(reference_path)))
     # Get the ratio of base words count relative to reference words count.
@@ -38,7 +40,7 @@ def find_meaningful_words_in_file_from_another_file(base_path, reference_path, n
     # Sort the relative count of base words
     sorted_base_words_relative_reference_count_tuple_list = words_counter.sort_words_count(
         base_words_relative_reference_count_tuple_list)
-    most_meaningful_words = words_counter.get_only_common_words(
+    most_meaningful_words = words_counter.get_first_words_in_tuple_list(
         sorted_base_words_relative_reference_count_tuple_list, number_of_words)
     return most_meaningful_words
 

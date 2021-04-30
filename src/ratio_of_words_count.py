@@ -29,8 +29,8 @@ def get_base_words_with_reference_count(base_words_list, reference_words_list, r
 def calculate_relative_words_count_of_2_lists(base_words_count_tuple_list, base_words_with_reference_count):
     range_base_words = range(len(base_words_count_tuple_list))
     # For each word in base list, calculate the relative count to the reference words list
-    base_relative_to_reference_count = [base_words_count_tuple_list[x][config.FREQUENCY_PLACE_IN_FREQUENCY_LIST] /
-                                        base_words_with_reference_count[x][config.FREQUENCY_PLACE_IN_FREQUENCY_LIST]
+    base_relative_to_reference_count = [base_words_count_tuple_list[x][config.COUNT_PLACE_IN_WORDS_COUNT_LIST] /
+                                        base_words_with_reference_count[x][config.COUNT_PLACE_IN_WORDS_COUNT_LIST]
                                         for x in range_base_words]
     # Create a words_ count tuple list
     base_words_relative_reference_count_tuple_list = [
