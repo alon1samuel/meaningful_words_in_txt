@@ -5,12 +5,30 @@ from src import get_words_only
 class TemplateTest(unittest.TestCase):
 
     @staticmethod
-    def test_gets_words_from_string():
+    def test_function_gets_words_from_string_return_words_normal_words():
         # Input data and reference
-        string_of_words_input = "Alon, guy , ~~: that are not words"
-        reference_words_list = ["Alon", "guy", "that", "are", "not", "words"]
+        string_of_words_input = "Alon is a nice guy"
+        reference_words_list = ["Alon", "is", "a", "nice", "guy"]
         # Check assertion
-        assert reference_words_list == get_words_only.gets_words_list_from_string(
+        reference_words_list == get_words_only.gets_words_list_from_string(
+            string_of_words_input)
+
+    @staticmethod
+    def test_function_gets_words_from_string_doesnt_return_lone_punctuations():
+        # Input data and reference
+        string_of_words_input = ", ~~:"
+        reference_words_list = []
+        # Check assertion
+        reference_words_list == get_words_only.gets_words_list_from_string(
+            string_of_words_input)
+
+    @staticmethod    
+    def test_function_gets_words_from_string_return_words_without_punctuations():
+        # Input data and reference
+        string_of_words_input = "Alon, is: a nice guy"
+        reference_words_list = ["Alon", "is", "a", "nice", "guy"]
+        # Check assertion
+        reference_words_list == get_words_only.gets_words_list_from_string(
             string_of_words_input)
 
     @staticmethod
@@ -25,4 +43,9 @@ class TemplateTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    string_of_words_input = "Alon, is: a nice guy"
+    reference_words_list = ["Alon", "is", "a", "nice", "guy"]
+    # Check assertion
+    assert reference_words_list == get_words_only.gets_words_list_from_string(
+        string_of_words_input)
     unittest.main()
